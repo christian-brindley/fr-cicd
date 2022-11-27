@@ -2,15 +2,19 @@
 
 const frodo = require("@rockcarver/frodo-lib");
 const emailTemplates = require("./helpers/emailTemplates.js");
+const scripts = require("./helpers/scripts.js");
+const idm = require("./helpers/idm.js");
 const { getTokens } = frodo.Authenticate;
 require('dotenv').config();
 
 const { session } = frodo.state.default;
-const configDir = process.env.CONFIG_DIR;
+const configDir = "target/raw"; // process.env.CONFIG_DIR;
 
 async function getConfig() {
     await getTokens();
-    await emailTemplates.exportEmailTemplatesToFiles(configDir);
+    await emailTemplates.exportEmailTemplates(configDir);
+    await scripts.exportScripts(configDir, "alpha");
+    await idm.exportIdmConfig(configDir);
 }
 
 session.setTenant(process.env.TENANT_BASE_URL);

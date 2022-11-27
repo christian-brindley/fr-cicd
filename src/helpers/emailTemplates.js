@@ -1,9 +1,12 @@
+/*
+
 const frodo = require("@rockcarver/frodo-lib");
 const utils = require("./utils.js");
 const fs = require("fs");
 
-const { listEmailTemplates } = frodo.EmailTemplate;
+const { listEmailTemplates } = frodo.EmailTemplate.;
 const { saveJsonToFile } = utils;
+
 
 const EMAIL_TEMPLATE_TYPE = "emailTemplate";
 
@@ -35,3 +38,30 @@ async function exportEmailTemplatesToFiles(exportDir) {
 }
 
 module.exports.exportEmailTemplatesToFiles = exportEmailTemplatesToFiles;
+*/
+
+const frodo = require("@rockcarver/frodo-lib");
+const utils = require("./utils.js");
+const fs = require("fs");
+const process = require('process');
+
+const { exportEmailTemplatesToFiles } = frodo.EmailTemplate;
+
+const EMAIL_TEMPLATE_TYPE = "emailTemplate";
+
+async function exportEmailTemplates(exportDir) {
+    const wd = process.cwd();
+    try {
+      const fileDir = `${exportDir}/${EMAIL_TEMPLATE_TYPE}`;
+      if (!fs.existsSync(fileDir)) {
+        fs.mkdirSync(fileDir, { recursive: true });
+      }
+      process.chdir(fileDir);
+      await exportEmailTemplatesToFiles();
+    } catch (err) {
+      console.log(err);
+    }
+    process.chdir(wd);
+}
+
+module.exports.exportEmailTemplates = exportEmailTemplates;

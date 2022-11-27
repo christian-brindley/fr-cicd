@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "origin": "https://openam-forgerock-brindley.forgeblocks.com/am",
+    "originAmVersion": "7.3.0",
+    "exportedBy": "christian.brindley@forgerock.com",
+    "exportDate": "2022-11-27T17:44:57.898Z",
+    "exportTool": "frodo",
+    "exportToolVersion": "v0.16.1 [v14.18.2]"
+  },
+  "script": {
+    "91d197de-5916-4dca-83b5-9a4df26e7159": {
+      "_id": "91d197de-5916-4dca-83b5-9a4df26e7159",
+      "name": "WordPress Profile Normalization",
+      "description": "Normalizes raw profile data from WordPress",
+      "script": [
+        "/*",
+        " * Copyright 2020 ForgeRock AS. All Rights Reserved",
+        " *",
+        " * Use of this code requires a commercial software license with ForgeRock AS.",
+        " * or with one of its affiliates. All use shall be exclusively subject",
+        " * to such license between the licensee and ForgeRock AS.",
+        " */",
+        "",
+        "import static org.forgerock.json.JsonValue.field",
+        "import static org.forgerock.json.JsonValue.json",
+        "import static org.forgerock.json.JsonValue.object",
+        "",
+        "return json(object(",
+        "        field(\"id\", rawProfile.username),",
+        "        field(\"displayName\", rawProfile.display_name),",
+        "        field(\"photoUrl\", rawProfile.avatar_URL),",
+        "        field(\"email\", rawProfile.email),",
+        "        field(\"username\", rawProfile.username)))"
+      ],
+      "default": true,
+      "language": "GROOVY",
+      "context": "SOCIAL_IDP_PROFILE_TRANSFORMATION",
+      "createdBy": "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
+      "creationDate": 1433147666269,
+      "lastModifiedBy": "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
+      "lastModifiedDate": 1433147666269
+    }
+  }
+}

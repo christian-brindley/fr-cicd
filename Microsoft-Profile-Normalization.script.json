@@ -3,15 +3,15 @@
     "origin": "https://openam-forgerock-brindley.forgeblocks.com/am",
     "originAmVersion": "7.3.0",
     "exportedBy": "christian.brindley@forgerock.com",
-    "exportDate": "2022-11-27T17:51:57.540Z",
+    "exportDate": "2022-11-28T07:56:44.767Z",
     "exportTool": "frodo",
     "exportToolVersion": "v0.16.1 [v14.18.2]"
   },
   "script": {
-    "91d197de-5916-4dca-83b5-9a4df26e7159": {
-      "_id": "91d197de-5916-4dca-83b5-9a4df26e7159",
-      "name": "WordPress Profile Normalization",
-      "description": "Normalizes raw profile data from WordPress",
+    "73cecbfc-dad0-4395-be6a-6858ee3a80e5": {
+      "_id": "73cecbfc-dad0-4395-be6a-6858ee3a80e5",
+      "name": "Microsoft Profile Normalization",
+      "description": "Normalizes raw profile data from Microsoft",
       "script": [
         "/*",
         " * Copyright 2020 ForgeRock AS. All Rights Reserved",
@@ -26,11 +26,12 @@
         "import static org.forgerock.json.JsonValue.object",
         "",
         "return json(object(",
-        "        field(\"id\", rawProfile.username),",
-        "        field(\"displayName\", rawProfile.display_name),",
-        "        field(\"photoUrl\", rawProfile.avatar_URL),",
-        "        field(\"email\", rawProfile.email),",
-        "        field(\"username\", rawProfile.username)))"
+        "        field(\"id\", rawProfile.id),",
+        "        field(\"displayName\", rawProfile.displayName),",
+        "        field(\"givenName\", rawProfile.givenName),",
+        "        field(\"familyName\", rawProfile.surname),",
+        "        field(\"email\", rawProfile.userPrincipalName),",
+        "        field(\"username\", rawProfile.userPrincipalName)))"
       ],
       "default": true,
       "language": "GROOVY",

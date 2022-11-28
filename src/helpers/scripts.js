@@ -8,7 +8,8 @@ const { session } = frodo.state.default;
 
 const SCRIPT_TYPE = "script";
 
-async function exportScripts(exportDir, realm) {
+async function exportScripts(exportDir, realms) {
+  for (const realm of realms) {
     session.setRealm(realm);
     const wd = process.cwd();
     try {
@@ -22,6 +23,7 @@ async function exportScripts(exportDir, realm) {
       console.log(err);
     }
     process.chdir(wd);
+  }
 }
 
 module.exports.exportScripts = exportScripts;

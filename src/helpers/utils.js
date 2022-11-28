@@ -2,6 +2,9 @@ const fs = require("fs");
 const slugify = require("slugify");
 const frodo = require("@rockcarver/frodo-lib");
 
+const CONFIG_SUB_DIR = "platform-config";
+const RAW_SUB_DIR = "raw";
+
 function getTypedFilename(name, type, suffix = 'json') {
   const slug = slugify(name.replace(/^http(s?):\/\//, ''));
   return `${slug}.${type}.${suffix}`;
@@ -43,3 +46,5 @@ function saveToFile(type, data, identifier, filename) {
 
 module.exports.saveJsonToFile = saveJsonToFile;
 module.exports.getTypedFilename = getTypedFilename;
+module.exports.CONFIG_SUB_DIR = CONFIG_SUB_DIR;
+module.exports.RAW_SUB_DIR = RAW_SUB_DIR;

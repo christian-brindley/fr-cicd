@@ -8,12 +8,12 @@ const { getTokens } = frodo.Authenticate;
 require('dotenv').config();
 
 const { session } = frodo.state.default;
-const configDir = "target/raw"; // process.env.CONFIG_DIR;
+const configDir = "target"; // process.env.CONFIG_DIR;
 
 async function getConfig() {
     await getTokens();
     await emailTemplates.exportEmailTemplates(configDir);
-    await scripts.exportScripts(configDir, "alpha");
+    await scripts.exportScripts(configDir, ["alpha","bravo"]);
     await idm.exportIdmConfig(configDir);
 }
 

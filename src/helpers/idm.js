@@ -43,7 +43,32 @@ function processManaged(sourceDir, targetDir) {
     console.error(err)
   }
 }
+/*
+function processEmailTemplates(sourceDir, targetDir) {
+  const templateSourceDir = `${sourceDir}/emailTemplate`
+  const templateTargetDir = `${targetDir}/emailTemplate`;
+  if (!fs.existsSync(templateTargetDir)) {
+    fs.mkdirSync(templateTargetDir, { recursive: true });
+  }
 
+  try {
+    fs.readdirSync(templateSourceDir).forEach(file => {
+      const data = fs.readFileSync(file, 'utf8');
+      const templateObj = JSON.parse(data);
+      const subDir = `${templateTargetDir}/${data.};
+
+      if (!fs.existsSync(`${objectPath}/${scriptsSubdir}`)) {
+        fs.mkdirSync(`${objectPath}/${scriptsSubdir}`, { recursive: true });
+      }
+
+      const fileName = `${objectPath}/${managedObject.name}.json`;
+      saveJsonToFile(managedObject, fileName);
+    });
+  } catch (err) {
+    console.error(err)
+  }
+}
+*/
 // Reformat IDM config
 
 function processIdmConfig(exportDir) {

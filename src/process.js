@@ -8,6 +8,7 @@ const configDir = "target";
 
 function processConfig() {
     idm.processIdmConfig(configDir);
+    emailTemplates.processEmailTemplates(configDir);
 }
 
 processConfig();

@@ -5,6 +5,9 @@ default:
 	src/export.js
 	src/process.js
 
+process:
+	src/process.js
+
 install:
 	echo "Not implemented"
 

@@ -20,11 +20,11 @@ function processManaged(sourceDir, targetDir) {
     managedObjects.objects.forEach(managedObject => {
       const objectPath = `${targetDir}/managed/${managedObject.name}`;
       const scriptsSubdir = "scripts";
-  
+
       if (!fs.existsSync(`${objectPath}/${scriptsSubdir}`)) {
         fs.mkdirSync(`${objectPath}/${scriptsSubdir}`, { recursive: true });
       }
-  
+
       Object.entries(managedObject).forEach(
         ([key, value]) => {
           if (value.type && (value.type === "text/javascript") && value.source) {
@@ -35,9 +35,8 @@ function processManaged(sourceDir, targetDir) {
           }
         }
       );
-  
+
       const fileName = `${objectPath}/${managedObject.name}.json`;
-      console.log("Saving object", fileName);
       saveJsonToFile(managedObject, fileName);
     });
   } catch (err) {
@@ -47,24 +46,25 @@ function processManaged(sourceDir, targetDir) {
 
 // Reformat IDM config
 
-function postProcess(sourceDir, targetDir) {
-    processManaged(sourceDir, targetDir);
+function processIdmConfig(exportDir) {
+  const rawDir = `${exportDir}/${RAW_SUB_DIR}/${EXPORT_SUBDIR}`;
+  const targetDir = `${exportDir}/${CONFIG_SUB_DIR}/${EXPORT_SUBDIR}`;
+  processManaged(rawDir, targetDir);
 }
 
 // Entry point
 
 async function exportIdmConfig(exportDir) {
-    try {
-      const rawDir = `${exportDir}/${RAW_SUB_DIR}/${EXPORT_SUBDIR}`;
-      const targetDir = `${exportDir}/${CONFIG_SUB_DIR}/${EXPORT_SUBDIR}`;
-      if (!fs.existsSync(rawDir)) {
-        fs.mkdirSync(rawDir, { recursive: true });
-      }
-      await exportAllRawConfigEntities(rawDir);
-      postProcess(rawDir, targetDir);
-    } catch (err) {
-      console.log(err);
+  try {
+    const rawDir = `${exportDir}/${RAW_SUB_DIR}/${EXPORT_SUBDIR}`;
+    if (!fs.existsSync(rawDir)) {
+      fs.mkdirSync(rawDir, { recursive: true });
     }
+    await exportAllRawConfigEntities(rawDir);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 module.exports.exportIdmConfig = exportIdmConfig;
+module.exports.processIdmConfig = processIdmConfig;
